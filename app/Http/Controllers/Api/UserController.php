@@ -17,8 +17,17 @@ class UserController extends Controller
              $users = new User();
              $users->name = $request->name;
              $users->email = $request->email;
-             $users->password = $request->password;
-             $users->save();
+             if ($users->save()) {
+                return response()->json([
+                    "msj" => "usuario registrado",
+                    "tipo" => "success"
+                ]);
+             }else{
+                return response()->json([
+                    "msj" => "usuario no registrado",
+                    "tipo" => "error"
+                ]);
+             }
      } 
  
      public function list_users($id){
@@ -30,9 +39,18 @@ class UserController extends Controller
          $users = User::findOrFail($id);
          $users->name = $request->name;
          $users->email = $request->email;
-         $users->password = $request->password;
-         $users->save();
-         return $users;
+         if ($users->save()) {
+            return response()->json([
+                "msj" => "usuario editado",
+                "tipo" => "success"
+            ]);
+         }else{
+            return response()->json([
+                "msj" => "usuario no editado",
+                "tipo" => "error"
+            ]);
+         }
+         
      }    
  
      public function delete( $id){
