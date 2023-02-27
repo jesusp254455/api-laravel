@@ -17,6 +17,7 @@ class UserController extends Controller
              $users = new User();
              $users->name = $request->name;
              $users->email = $request->email;
+             $users->password = $request->password;
              if ($users->save()) {
                 return response()->json([
                     "msj" => "usuario registrado",
